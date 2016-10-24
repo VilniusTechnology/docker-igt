@@ -5,8 +5,7 @@ MAINTAINER "Lukas Mikelionis" <lukas.mikelionis@vilnius.technology>
 RUN apt-get update
 
 # Install ZIP extension
-RUN apt-get install -y php-pear
-RUN apt-get install -y zziplib-bin
+RUN apt-get install -y php-pear zziplib-bin
 RUN pecl install "channel://pecl.php.net/zip-1.5.0"
 
 # Install modules
