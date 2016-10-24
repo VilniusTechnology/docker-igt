@@ -26,8 +26,6 @@ RUN apt-get install -y \
     && docker-php-ext-install sockets \
     && docker-php-ext-install mbstring
 
-RUN apt-get install zlib1g-dev
-
 # Deploy git
 RUN apt-get install -y git-all \
     && pecl install xdebug \
@@ -38,16 +36,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
     && PATH=$PATH:/root/.composer/vendor/bin
 
 RUN apt-get install -yq nodejs-legacy npm ant \
-    && npm install -g bower \
-    && npm install gulp -g
+    && npm install -g bower gulp
 
 ADD ./entrypoint/entrypoint.sh /entrypoint/entrypoint.sh
 ADD ./ini/php.ini /usr/local/etc/php/php.ini
-
-# FE stuff
-RUN apt-get install nodejs-legacy
-RUN npm install -g bower
-RUN npm install gulp -g
 
 VOLUME ["/var/www/"]
 
