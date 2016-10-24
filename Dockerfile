@@ -3,10 +3,12 @@ FROM php:5.5-fpm
 MAINTAINER "Lukas Mikelionis" <lukas.mikelionis@vilnius.technology>
 
 # Install modules
-RUN apt-get update \
-    && apt-get install --fix-missing -y \
+RUN apt-get update
+
+RUN apt-get install -yq php-pear
+
+RUN apt-get install -yq \
     git \
-    php-pear \
     zziplib-bin \
     libmcrypt-dev  \
     libicu-dev \
