@@ -14,8 +14,9 @@ RUN apt-get update \
     zlib1g-dev \
     nodejs-legacy \
     npm \
-    ant \
-    && docker-php-ext-install zip \
+    ant
+
+RUN docker-php-ext-install zip \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install mysqli \
     && docker-php-ext-install mysql \
@@ -24,9 +25,9 @@ RUN apt-get update \
     && docker-php-ext-install bcmath \
     && docker-php-ext-install intl \
     && docker-php-ext-install opcache \
-    && docker-php-ext-install sockets \
-    && docker-php-ext-install mbstring
-    && pecl install  "channel://pecl.php.net/zip-1.5.0" \
+    && docker-php-ext-install sockets
+
+RUN pecl install  "channel://pecl.php.net/zip-1.5.0" \
     xdebug \
     mongo
 
