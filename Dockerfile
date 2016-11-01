@@ -41,6 +41,16 @@ RUN npm install -g bower gulp
 
 ADD ./entrypoint/entrypoint.sh /entrypoint/entrypoint.sh
 ADD ./ini/php.ini /usr/local/etc/php/php.ini
+#ADD ./ssh /var/www/.ssh
+#RUN chown -R www-data:www-data /var/www/.ssh \
+#    && chmod -R go-rwx /var/www/.ssh
+
+# Adjust default user
+RUN usermod -u $DEFAULT_UID www-data \
+    && groupmod -g $DEFAULT_UID www-data \
+    && chown -R www-data:www-data /var/www \
+    && chsh -s /bin/bash www-data \
+    && echo "www-data ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/90-www-data
 
 VOLUME ["/var/www/"]
 
