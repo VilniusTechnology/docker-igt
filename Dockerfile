@@ -39,11 +39,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 RUN npm install -g bower gulp
 
-# ensure www-data user exists
-RUN useradd -ms /bin/bash www-data
-USER www-data
-WORKDIR /var/www
-
 ADD ./entrypoint/entrypoint.sh /entrypoint/entrypoint.sh
 ADD ./ini/php.ini /usr/local/etc/php/php.ini
 #ADD ./ssh /var/www/.ssh
@@ -51,11 +46,14 @@ ADD ./ini/php.ini /usr/local/etc/php/php.ini
 #    && chmod -R go-rwx /var/www/.ssh
 
 # Adjust default user
-RUN usermod -u $DEFAULT_UID www-data \
-    && groupmod -g $DEFAULT_UID www-data \
-    && chown -R www-data:www-data /var/www \
-    && chsh -s /bin/bash www-data \
-    && echo "www-data ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/90-www-data
+#RUN usermod -u $DEFAULT_UID www-data \
+#    && groupmod -g $DEFAULT_UID www-data
+
+RUN chown -R www-data:www-data /var/www
+
+#    && chsh -s /bin/bash www-data
+    
+RUN echo "www-data ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/90-www-data
 
 VOLUME ["/var/www/"]
 
