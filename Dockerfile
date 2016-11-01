@@ -50,10 +50,9 @@ ADD ./ini/php.ini /usr/local/etc/php/php.ini
 #    && groupmod -g $DEFAULT_UID www-data
 
 RUN chown -R www-data:www-data /var/www
-
 #    && chsh -s /bin/bash www-data
     
-RUN echo "www-data ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/90-www-data
+# RUN echo "www-data ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/90-www-data
 
 VOLUME ["/var/www/"]
 
