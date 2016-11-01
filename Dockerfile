@@ -39,6 +39,11 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 RUN npm install -g bower gulp
 
+# ensure www-data user exists
+RUN set -x ; \
+  addgroup -g 82 -S www-data ; \
+  adduser -u 82 -D -S -G www-data www-data && exit 0 ; exit 1
+
 ADD ./entrypoint/entrypoint.sh /entrypoint/entrypoint.sh
 ADD ./ini/php.ini /usr/local/etc/php/php.ini
 #ADD ./ssh /var/www/.ssh
